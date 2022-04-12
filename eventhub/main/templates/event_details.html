@@ -100,7 +100,7 @@
                                             </div>
                                             <div class="right-content">
                                                 {% if can_delete_comments or request.user == comment.user %}
-                                                <h4>{{comment.user.profile.full_name}}<span>{{ comment.created_at|date:"j M, Y G:i" }}</span><span><a href="{% url 'comment_delete_page' comment.pk %}"  >Delete</a></span></h4>
+                                                <h4>{{comment.user.profile.full_name}}<span>{{ comment.created_at|date:"j M, Y G:i" }}</span><span><a href="{% url 'comment_delete_page' comment.pk %}" style="color: red;" >Delete</a></span></h4>
                                                 {% else %}
                                                 <h4>{{comment.user.profile.full_name}}<span>{{ comment.created_at|date:"j M, Y G:i" }}</span></h4>
                                                 {% endif %}
@@ -122,7 +122,7 @@
                                             </div>
                                             <div class="right-content">
                                                 {% if can_delete_comments or request.user == comment.user %}
-                                                    <h4>{{comment.user.profile.full_name}}<span>{{ comment.created_at|date:"j M, Y G:i" }}</span><span><a href="{% url 'comment_delete_page' comment.pk %}"  >Delete</a></span></h4>
+                                                    <h4>{{comment.user.profile.full_name}}<span>{{ comment.created_at|date:"j M, Y G:i" }}</span><span><a href="{% url 'comment_delete_page' comment.pk %}" style="color: red;" >Delete</a></span></h4>
                                                 {% else %}
                                                     <h4>{{comment.user.profile.full_name}}<span>{{ comment.created_at|date:"j M, Y G:i" }}</span></h4>
                                                 {% endif %}
