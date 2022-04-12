@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from eventhub.categories.models import Category
 
 from eventhub.main.forms import CreateEventForm, UpdateEventForm, CommentEventForm
-from eventhub.main.models import Event, Home
+from eventhub.main.models import Event, Home, Comment
 
 class HomeView(views.TemplateView):
     model = Home
@@ -87,8 +87,8 @@ class DeleteEventView(views.DeleteView):
     template_name = 'event_delete.html'
     
     def get_success_url(self):
-          pk=self.object.user.pk
-          return reverse_lazy('profile_details', kwargs={'pk': pk})
+        pk=self.object.user.pk
+        return reverse_lazy('profile_details', kwargs={'pk': pk})
 
 
 class DetailsEventView(views.edit.FormMixin, views.DetailView):
@@ -104,11 +104,13 @@ class DetailsEventView(views.edit.FormMixin, views.DetailView):
         current_event = self.object
         comments = current_event.comment_set.all()
         all_comments = len(comments)
+        can_delete_comments = self.request.user.has_perm('main.delete_comment')
         context.update({
             'form': form,
             'comments': comments,
             'all_comments': all_comments,
             'categories': categories,
+            'can_delete_comments': can_delete_comments,
         })
         return context
     
@@ -140,6 +142,22 @@ def event_delete_page(request, pk):
         'previous_url': previous_url, 
     }
     return render(request=request, template_name='event_delete.html', context=context)
+
+def comment_delete_page(request, pk):
+    previous_url = request.META.get('HTTP_REFERER')
+    context = {
+        'comment_pk': pk,
+        'previous_url': previous_url, 
+    }
+    return render(request=request, template_name='comment_delete.html', context=context)
+
+class DeleteCommentView(views.DeleteView):
+    model = Comment
+    template_name = 'comment_delete.html'
+    
+    def get_success_url(self):
+        pk=self.object.event.pk
+        return reverse_lazy('event_details', kwargs={'pk': pk})
 
 def handler404(request, exception):
     return render(request=request, template_name='page_not_found.html')
