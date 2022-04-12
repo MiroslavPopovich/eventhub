@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block page_content %}
+{% load static %}
+<!-- Profile Information -->
+<p class="whitespace"></p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="d-flex">
+            <div class="d-inline p-2 w-50">
+                {% if profile.image %}
+                <img src="{{ profile.image.url }}" class="w-50 rounded mx-auto d-block"
+                    alt="description">
+                {% elif profile.gender == 'Male' %}
+                    <img src="/static/assets/images/maleProfile406x406.png" class="w-50 rounded mx-auto d-block"
+                        alt="description">
+                {% elif profile.gender == 'Female' %}
+                    <img src="/static/assets/images/femaleProfile406x406.png" class="w-50 rounded mx-auto d-block"
+                        alt="description">
+                {% else %}
+                    <img src="/static/assets/images/nogenderProfile406x406.png" class="w-50 rounded mx-auto d-block"
+                        alt="description">
+                {% endif %}
+            </div>
+            <div class="d-inline p-2 w-50">
+                <div class="d-flex flex-column">
+                    <h5 class="profileFont"><u>Name:</u> {{ profile.full_name }}</h5>
+                    <!-- If Date of Birth -->
+                    {% if profile.date_of_birth %}
+                    <h5 class="profileFont"><u>Birthdate:</u> {{ profile.date_of_birth }}</h5>
+                    {% else %}
+                    <h5 class="profileFont"><u>Birthdate:</u> Undefined</h5>
+                    {% endif %}
+                    <!-- If Email -->
+                    <h5 class="profileFont"><u>Email:</u> {{ request.user.email }}</h5>
+                    <!-- If Gender is Chosen -->
+                    {% if profile.gender %}
+                    <h5 class="profileFont"><u>Gender:</u> {{ profile.gender }}</h5>
+                    {% else %}
+                    <h5 class="profileFont"><u>Gender:</u> Undefined</h5>
+                    {% endif %}
+                    <!-- If Description -->
+                    {% if profile.description %}
+                    <h5 class="profileFont"><u>Description:</u> {{ profile.description }}</h5>
+                    {% else %}
+                    <h5 class="profileFont"><u>Description:</u> Undefined</h5>
+                    {% endif %}
+
+                </div>
+                <p class="mt-2">Total Events: {{ total_events }} <a href="{% url 'user_change_password' %}">&nbsp; Change password</a></p>
+                <!-- <p class="mt-2">Total Likes: 21</p> -->
+                
+                <a href="{% url 'profile_update' request.user.id %}" class="btn btn-primary">Update</a>
+                <a href="{% url 'profile_delete_page' %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<p style="white-space: normal; padding: 40px;"></p>
+<!-- Pets Information -->
+{% if total_events > 0 %}
+<h2 class="text-center">My Events</h2>
+<div class="container mb-4">
+    <div class="d-flex justify-content-start mb-5">
+        {% for event in events %}
+        <!-- Info for Events Pet -->
+        <div style="width: 18rem;">
+            <h5>{{ event.topic }}</h5>
+            <p class="mt-2">{{ event.category }}</p>
+            <a href="{% url 'event_update' event.pk %}" class="btn btn-primary">Update</a>
+            <a href="{% url 'event_delete_page' event.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<h2 class="text-center">No Events</h2>
+{% endif %}
+
+<p style="white-space: normal; padding: 5px;"></p>
+<!-- <p class="whitespace"></p> -->
+<!-- End Profile Information -->
+{% endblock %}

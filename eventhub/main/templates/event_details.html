@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% block page_content %}
+{% load static %}
+<!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="heading-page header-text">
+    <!-- <section class="page-heading">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="text-content">
+                  <h4>Post Details</h4>
+                  <h2>Single blog post</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section> -->
+</div>
+
+<!-- Banner Ends Here -->
+
+<section class="blog-posts grid-system">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="all-blog-posts">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="blog-post">
+                                <div class="blog-thumb">
+                                    {% if event.image %}
+                                        <img src="{{ event.image.url }}" alt="description">
+                                    {% else %}
+                                        <img src="/static/assets/images/event1big.png" alt="description">
+                                    {% endif %}
+                                </div>
+                                <div class="down-content">
+                                    <span>{{ event.category }}</span>
+                                    <a >
+                                        <h4>{{ event.topic }}</h4>
+                                    </a>
+                                    <ul class="post-info">
+                                        {% if event.user == request.user %}
+                                            <li><a href="{% url 'profile_details' event.user.id %}">You</a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'profile_details_short' event.user.id %}">{{ event.user.profile.full_name }}</a></li>
+                                        {% endif %}
+                                        <li style="color: #aaa; font-weight: 500; font-size: 14px; font-family: 'Roboto'">Created on {{ event.created_at|date:"j M, Y G:i" }}</li>
+                                        <li style="color: #aaa; font-weight: 500; font-size: 14px; font-family: 'Roboto'">{{ event.comment_set.all|length }} Comments</li>
+                                    </ul>
+                                    <p> {{ event.description }} </p>
+                                    <div class="post-options">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <ul class="post-tags">
+                                                    <li><i class="fa fa-tags"></i></li>
+                                                    <li><a href="{% url 'dashboard' %}">All Events</a>,</li>
+                                                    <li><a href="{% url 'categories' %}">Categories</a></li>
+                                                </ul>
+                                            </div>
+                                            {% if event.user.id == request.user.id %}
+                                            <div class="col-6">
+                                                <ul class="post-share">
+                                                    <li><i class="fa fa-share-alt"></i></li>
+                                                    <li><a href="{% url 'event_update' event.pk %}">Update</a>,</li>
+                                                    <li><a href="{% url 'event_delete_page' event.pk %}"> Delete</a></li>
+                                                </ul>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="sidebar-item comments">
+                                <div class="sidebar-heading">
+                                    {% if all_comments > 0 %}
+                                    <h2>{{ all_comments }} comments</h2>
+                                    {% elif request.user.is_authenticated %}
+                                    <h2>You can make the first comment for this event </h2>
+                                    {% endif %}
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        {% for comment in comments %}
+                                        {% if not forloop.counter|divisibleby:2 %}
+                                        <li>
+                                            <div class="author-thumb">
+                                                {% if comment.user.profile.image %}
+                                                <img src="{{ comment.user.profile.image.url }}" alt="description">
+                                                {% elif comment.user.profile.gender == 'Male' %}
+                                                    <img src="/static/assets/images/maleProfile406x406.png" alt="description">
+                                                {% elif comment.user.profile.gender == 'Female' %}
+                                                    <img src="/static/assets/images/femaleProfile406x406.png" alt="description">
+                                                {% else %}
+                                                    <img src="/static/assets/images/nogenderProfile406x406.png" alt="description">
+                                                {% endif %}
+                                            </div>
+                                            <div class="right-content">
+                                                <h4>{{comment.user.profile.full_name}}<span>{{ comment.created_at|date:"j M, Y G:i" }}</span><span><a href="#">LinkForDelete</a></span></h4>
+                                                <p>{{ comment.text }}</p>
+                                            </div>
+                                        </li>
+                                        {% else %}
+                                        <li class="replied">
+                                            <div class="author-thumb">
+                                                {% if comment.user.profile.image %}
+                                                <img src="{{ comment.user.profile.image.url }}" alt="description">
+                                                {% elif comment.user.profile.gender == 'Male' %}
+                                                    <img src="/static/assets/images/maleProfile406x406.png" alt="description">
+                                                {% elif comment.user.profile.gender == 'Female' %}
+                                                    <img src="/static/assets/images/femaleProfile406x406.png" alt="description">
+                                                {% else %}
+                                                    <img src="/static/assets/images/nogenderProfile406x406.png" alt="description">
+                                                {% endif %}
+                                            </div>
+                                            <div class="right-content">
+                                                <h4>{{ comment.user.profile.full_name }}<span>{{ comment.created_at|date:"j M, Y G:i" }}</span><span><a href="#">LinkForDelete</a></span></h4>
+                                                <p>{{ comment.text }}</p>
+                                            </div>
+                                        </li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <div class="col-lg-12">
+                            <div class="sidebar-item submit-comment">
+                                <div class="sidebar-heading">
+                                    <h2>Your comment</h2>
+                                </div>
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <fieldset>
+                                                <input name="name" type="text" id="name" placeholder="Your name"
+                                                    required="" value="{{ request.user.profile.full_name }}" disabled="disabled">
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <fieldset>
+                                                <input name="email" type="text" id="email" placeholder="Your email"
+                                                    required="" value="{{  request.user.email }}" disabled="disabled">
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <form form method="post" id="comment" action="{% url 'event_details' event.pk %}" enctype="multipart/form-data" >
+                                        
+                                        {% csrf_token %}
+                                        {{ form }}
+                                        <div class="row">
+                                            
+                                         
+                                            
+                                            <div class="col-lg-12">
+                                                <fieldset>
+                                                    <button type="submit" id="form-submit"
+                                                        class="main-button">Submit</button>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sidebar-item categories">
+                                <div class="sidebar-heading">
+                                    <h2>Categories</h2>
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        {% if categories %}
+                                            {% for category in categories %}
+                                                <li><a href="{% url 'dashboard_by_category' category.pk %}">- {{ category.category_type }}</a></li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li><a href="#">- No categories</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

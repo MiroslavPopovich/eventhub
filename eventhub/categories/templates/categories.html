@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block page_content %}
+{% load static %}
+{% if categories %}
+<div class="heading-page header-text">
+    <section class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-content">
+                        <h4>All Categories</h4>
+                        <h2>Choose one of the categories</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="main-banner header-text">
+    <div class="container-fluid">
+        <div class="owl-banner owl-carousel">
+
+            {% for category in categories %}
+          
+                <div class="item">
+                    <a href="{% url 'dashboard_by_category' category.pk %}">
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="description">
+                        {% else %}
+                        <img src="/static/assets/images/banner-item-06.jpg" alt="">
+                        {% endif %}
+                        <div class="item-content">
+                            <div class="main-content">
+                                <div class="meta-category">
+                                    <span>{{ category.category_type }}</span>
+                                </div>
+                                    <h4>{{ category.category_description }}</h4>
+                                <ul class="post-info">
+                                    <!-- <li><a href="#">Admin</a></li> -->
+                                    <li style="color: #fff; font-weight: 500; font-size: 14px; font-family: 'Roboto'">{{ category.created_at|date:"j M, Y" }}</li>
+                                    <li style="color: #fff; font-weight: 500; font-size: 14px; font-family: 'Roboto'">{{ category.event_set.all|length }} Events</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            
+        
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="heading-page header-text">
+    <section class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-content">
+                        <h4>Categories</h4>
+                        <h2>No available categories</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="main-banner header-text">
+    <div class="container-fluid">
+        <div class="owl-banner owl-carousel">
+            <div class="item">
+                <img src="/static/assets/images/nocategories.png" alt="">
+                <div class="item-content">
+                    <div class="main-content">
+                        <div class="meta-category">
+                            <span>Category</span>
+                        </div>
+                        <a href="#">
+                            <h4>No Category</h4>
+                        </a>
+                        <ul class="post-info">
+                            <!-- <li><a href="#">Admin</a></li> -->
+                            <li><a href="#">No Category</a></li>
+                            <li><a href="#">No Category</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

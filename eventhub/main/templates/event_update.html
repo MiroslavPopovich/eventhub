@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block page_content %}
+<!-- Edit Profile -->
+<p class="whitespace"></p>
+<div class="container">
+    <h1 class="text-center">Edit Your Event</h1>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <form form method="post" class="container mb-5" action="{% url 'event_update' event.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button class="btn btn-primary mt-2" type="submit">Update</button>
+                <a class="btn btn-primary mt-2" href="{{ previous_url }}">No, go back</a>
+                
+                <!-- {% url 'event_details' event.pk %} -->
+            </form>
+        </div>
+        
+        <div class="col-lg-3"></div>
+    </div>
+</div>
+<p class="whitespace"></p>
+<!-- End Edit Profile -->
+{% endblock %}

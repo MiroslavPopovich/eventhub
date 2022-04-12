@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block page_content %}
+<!-- User Logout -->
+<p style="white-space: normal; padding: 142px;"></p>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>Are you sure you want to Logout?</h1>
+            <div class="m-auto d-flex justify-content-center">
+                <div class="m-2">
+                    <form method="POST" action="{% url 'user_logout' %}">
+                        {% csrf_token %}
+                        {{ form }}
+                        <!-- For for Deleting a Profile -->
+
+                        <input type="submit" value="Confirm" class="btn btn-danger"/>
+                    </form>
+                </div>
+                <div class="m-2">
+                    <a class="btn btn-primary" href="{% url 'home' %}">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p class="whitespace"></p>
+<!-- End User Logout -->
+{% endblock %}

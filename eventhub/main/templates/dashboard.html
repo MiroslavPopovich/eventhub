@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block page_content %}
+{% load static %}
+{% if events %}
+<div class="heading-page header-text">
+    <section class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-content">
+                        <h4>All Available Events</h4>
+                        <h2>We hope you find your Event</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% else %}
+<div class="heading-page header-text">
+    <section class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-content">
+                        <h4>Events</h4>
+                        <h2>No Available Events</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endif %}
+
+<section class="blog-posts grid-system">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="all-blog-posts">
+                    <div class="row">
+                        {% if events %}
+                        {% for event in events %}
+                        <div class="col-lg-6">
+                            <div class="blog-post">
+                                <div class="blog-thumb">
+                                    {% if event.image %}
+                                        <img src="{{ event.image.url }}" alt="description">
+                                    {% else %}
+                                        <img src="/static/assets/images/event4.png" alt="description">
+                                    {% endif %}
+                                </div>
+                                <div class="down-content">
+                                    <span>{{ event.category }}</span>
+                                    <h4>{{ event.topic }}</h4>
+                                    <a href="{% url 'event_details' event.pk %}"> 
+                                        <h6>Click here for details</h6>
+                                    </a>
+                                    <ul class="post-info">
+                                        {% if event.user == request.user %}
+                                            <li><a href="{% url 'profile_details' event.user.id %}">You</a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'profile_details_short' event.user.id %}">{{ event.user.profile.full_name }}</a></li>
+                                        {% endif %}
+                                        <li style="color: #aaa; font-weight: 500; font-size: 14px; font-family: 'Roboto'">{{ event.created_at|date:"j M, Y" }}</li>
+                                        <li style="color: #aaa; font-weight: 500; font-size: 14px; font-family: 'Roboto'">{{ event.comment_set.all|length }} Comments</li>
+                                    </ul>
+                                    <p>{{ event.brief_description }}</p>
+                                    <!-- <div class="post-options">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <ul class="post-tags">
+                                                    <li><i class="fa fa-tags"></i></li>
+                                                    <li><a href="#">Best Templates</a>,</li>
+                                                    <li><a href="#">TemplateMo</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        {% else %}
+                        <img src="/static/assets/images/noevents.png" alt="">
+                        {% endif %}
+
+
+
+                        <div class="col-lg-12">
+                            <ul class="page-numbers">
+                                {% if page_obj.has_previous %}
+                                    <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-double-left"></i></a></li>
+                                    <li><a>{{ page_obj.previous_page_number }}</a></li>
+                                {% endif %}
+
+                                {% if page_obj.paginator.num_pages > 1 %}
+                                <li class="active"><a>{{ page_obj.number }}</a></li>                                
+                                {% endif %}
+                                
+                                {% if page_obj.has_next %}
+                                    <li><a>{{ page_obj.next_page_number }}</a></li>
+                                    <li><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-double-right"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sidebar-item categories">
+                                <div class="sidebar-heading">
+                                    <h2>Categories</h2>
+                                </div>
+                                <div class="content">
+                                    <ul>
+                                        {% if categories %}
+                                            {% for category in categories %}
+                                                <li><a href="{% url 'dashboard_by_category' category.pk %}">- {{ category.category_type }}</a></li>
+                                            {% endfor %}
+                                        {% else %}
+                                            <li><a href="#">- No categories</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
