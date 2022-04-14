@@ -103,13 +103,15 @@ WSGI_APPLICATION = 'eventhub.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'eventhub',
-        'USER': 'user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'NAME': 'd5d8prbilcd3c',
+        'USER': 'gbbzlgjaubudys',
+        'PASSWORD': 'd05243cdc1fceeb70567664c11326793213edf072baf3c5c304a531f871ab228',
+        'HOST': 'ec2-99-80-170-190.eu-west-1.compute.amazonaws.com',
         'PORT': '5432',
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
