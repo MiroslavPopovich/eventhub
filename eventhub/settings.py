@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-j4kk(35+d(wbf*w$pr9^+@xcijyvm8qcfx6my$gj3zdq+26-ov
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1',
+                 'youreventhub.herokuapp.com',
+                 ]
 
 
 # Application definition
