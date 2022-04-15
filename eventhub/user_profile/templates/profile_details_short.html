@@ -6,22 +6,26 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="d-flex">
-            <div class="d-inline p-2 w-50">
+            <div class="d-inline p-2" style="padding: 4rem !important;">
                 {% if profile.image %}
-                <img src="{{ profile.image.url }}" class="w-50 rounded mx-auto d-block"
-                    alt="description">
+                <div class="rounded mx-auto d-block">
+                    <img style="height: 162px; width: 162px" src="{{ profile.image.url }}" alt="description">
+                </div>
                 {% elif profile.gender == 'Male' %}
-                    <img src="/static/assets/images/maleProfile406x406.png" class="w-50 rounded mx-auto d-block"
-                        alt="description">
+                <div class="rounded mx-auto d-block">
+                    <img style="height: 162px; width: 162px" src="/static/assets/images/maleProfile406x406.png" alt="description">
+                </div>
                 {% elif profile.gender == 'Female' %}
-                    <img src="/static/assets/images/femaleProfile406x406.png" class="w-50 rounded mx-auto d-block"
-                        alt="description">
+                <div class="rounded mx-auto d-block">
+                    <img style="height: 162px; width: 162px" src="/static/assets/images/femaleProfile406x406.png" alt="description">
+                </div>
                 {% else %}
-                    <img src="/static/assets/images/nogenderProfile406x406.png" class="w-50 rounded mx-auto d-block"
-                        alt="description">
+                <div class="rounded mx-auto d-block">
+                    <img style="height: 162px; width: 162px" src="/static/assets/images/nogenderProfile406x406.png" alt="description">
+                </div>
                 {% endif %}
             </div>
-            <div class="d-inline p-2 w-50">
+            <div class="d-inline p-2"  style="padding: 4rem !important;">
                 <div class="d-flex flex-column">
                     <h5 class="profileFont"><u>Name:</u> {{ profile.full_name }}</h5>
                     <!-- If Date of Birth -->
@@ -47,7 +51,6 @@
 
                 </div>
                 <p class="mt-2">Total Events: {{ profile.user.event_set.all|length }}</p>
-                <!-- <p class="mt-2">Total Likes: 21</p> -->
             </div>
         </div>
     </div>
