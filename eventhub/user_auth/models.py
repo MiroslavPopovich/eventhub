@@ -1,9 +1,8 @@
 from django.db import models
 from django.contrib.auth import models as auth_models
 from eventhub.user_auth.managers import AppUsersManager
-from eventhub.user_profile.validators import MaxFileSizeInMbValidator, only_letters_validator
+from eventhub.user_auth.validators import MaxFileSizeInMbValidator, only_letters_validator
 from django.core.validators import MinLengthValidator, MaxLengthValidator
-
 
 class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     

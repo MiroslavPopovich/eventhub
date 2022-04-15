@@ -3,7 +3,6 @@ from eventhub.user_profile.models import Profile
 from django import forms
 
 # Register your models here.
-
 class ProfileForm(forms.ModelForm):
         
     class Meta:

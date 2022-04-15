@@ -1,9 +1,7 @@
 from django import forms
 from django.contrib import admin
-#from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
 from eventhub.user_auth.models import AppUser
 # Register your models here.
 
@@ -43,7 +41,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = AppUser
-        fields = ('email', 'password', 'is_active' )
+        fields = ('email', 'password',)
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -67,6 +65,7 @@ class UserAdmin(BaseUserAdmin):
         ('Personal info', {'fields': ()}),
         ('Permissions', {'fields': ('is_staff', 'groups',)}), # 'user_permissions',
     )
+    
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
@@ -81,6 +80,4 @@ class UserAdmin(BaseUserAdmin):
 
 # Now register the new UserAdmin...
 admin.site.register(AppUser, UserAdmin)
-# ... and, since we're not using Django's built-in permissions,
-# unregister the Group model from admin.
-#admin.site.unregister(Group)
+

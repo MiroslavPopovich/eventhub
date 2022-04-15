@@ -2,9 +2,8 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth import base_user as auth_base
 
 
-
 class AppUsersManager(auth_base.BaseUserManager):
-    def _create_user(self,email, password, **extra_fields):
+    def _create_user(self, email, password, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
         """
@@ -31,6 +30,5 @@ class AppUsersManager(auth_base.BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
         
-
         return self._create_user(email, password, **extra_fields)
 

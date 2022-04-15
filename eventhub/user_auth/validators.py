@@ -2,19 +2,12 @@ from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 
 VALIDATE_ONLY_LETTERS_EXCEPTION_MESSAGE = 'Value must containt only letters!'
-VALIDATE_ONLY_LETTERS_AND_SPACE_EXCEPTION_MESSAGE = 'Value must containt only letters and spaces!'
 FILE_MAX_SIZE_EXCEPTION_MESSAGE = 'Max file size is '
-ALLOWED_SYMBOLS = ['?', ' ', '.', '!', ',']
 
 def only_letters_validator(value):
     for ch in value:
         if not ch.isalpha():
             raise ValidationError(VALIDATE_ONLY_LETTERS_EXCEPTION_MESSAGE)
-
-def only_letters_and_space_validator(value):
-    for ch in value:
-        if not ch.isalpha() and ch not in ALLOWED_SYMBOLS:
-            raise ValidationError(VALIDATE_ONLY_LETTERS_AND_SPACE_EXCEPTION_MESSAGE)
 
 @deconstructible
 class MaxFileSizeInMbValidator:

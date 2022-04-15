@@ -2,7 +2,6 @@ from django import forms
 from eventhub.helpers import BootstrapMixin
 from eventhub.main.models import Comment, Event
 
-
 class CreateEventForm(BootstrapMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)

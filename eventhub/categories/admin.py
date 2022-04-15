@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from eventhub.categories.models import Category
 
 # Register your models here.

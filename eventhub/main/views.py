@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views import generic as views
 from django.urls import reverse_lazy
 from eventhub.categories.models import Category
-
 from eventhub.main.forms import CreateEventForm, UpdateEventForm, CommentEventForm
 from eventhub.main.models import Event, Home, Comment
 

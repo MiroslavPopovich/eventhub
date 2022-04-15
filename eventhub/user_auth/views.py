@@ -25,7 +25,6 @@ class UserRegistrationView(views.CreateView):
         login(self.request, self.object)
         return result
 
-
 def user_logout_page(request):
     context = {
     }

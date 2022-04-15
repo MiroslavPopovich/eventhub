@@ -69,7 +69,6 @@ class UserRegistrationForm(BootstrapMixin, auth_forms.UserCreationForm):
         }
         
 
-    
     def save(self, commit=True):
         user = super().save(commit=commit)
         user.has_profile = True

@@ -3,7 +3,6 @@ from eventhub.main.models import Home
 from django import forms
 
 # Register your models here.
-
 class HomeForm(forms.ModelForm):
         
     class Meta:

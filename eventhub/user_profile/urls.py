@@ -1,7 +1,6 @@
 from django.urls import path
 from eventhub.user_profile.views import  DeleteProfileView, CreateProfileView, DetailsProfileShortView, UpdateProfileView, DetailsProfileView, profile_delete_page# profile_create_page, profile_edit_page, profile_details_page, 
 
-
 urlpatterns = [
     path('details/<int:pk>/', DetailsProfileView.as_view(), name='profile_details'),
     path('details/short/<int:pk>/', DetailsProfileShortView.as_view(), name='profile_details_short'),

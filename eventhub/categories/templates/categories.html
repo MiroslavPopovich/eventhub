@@ -16,7 +16,6 @@
         </div>
     </section>
 </div>
-
 <!-- Page Content -->
 <!-- Banner Starts Here -->
 <div class="main-banner header-text">
@@ -24,7 +23,7 @@
         <div class="owl-banner owl-carousel">
 
             {% for category in categories %}
-          
+
                 <div class="item">
                     <a href="{% url 'dashboard_by_category' category.pk %}">
                         {% if category.image %}
@@ -39,7 +38,6 @@
                                 </div>
                                     <h4>{{ category.category_description }}</h4>
                                 <ul class="post-info">
-                                    <!-- <li><a href="#">Admin</a></li> -->
                                     <li style="color: #fff; font-weight: 500; font-size: 14px; font-family: 'Roboto'">{{ category.created_at|date:"j M, Y" }}</li>
                                     <li style="color: #fff; font-weight: 500; font-size: 14px; font-family: 'Roboto'">{{ category.event_set.all|length }} Events</li>
                                 </ul>
@@ -48,12 +46,12 @@
                     </a>
                 </div>
             
-        
             {% endfor %}
 
         </div>
     </div>
 </div>
+
 {% else %}
 <div class="heading-page header-text">
     <section class="page-heading">
@@ -83,7 +81,6 @@
                             <h4>No Category</h4>
                         </a>
                         <ul class="post-info">
-                            <!-- <li><a href="#">Admin</a></li> -->
                             <li><a href="#">No Category</a></li>
                             <li><a href="#">No Category</a></li>
                         </ul>
@@ -93,5 +90,6 @@
         </div>
     </div>
 </div>
+
 {% endif %}
 {% endblock %}

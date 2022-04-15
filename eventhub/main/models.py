@@ -1,6 +1,6 @@
 from django.db import models
 from eventhub.categories.models import Category
-from eventhub.categories.validators import MaxFileSizeInMbValidator, only_letters_validator, only_letters_and_space_validator
+from eventhub.main.validators import MaxFileSizeInMbValidator, only_letters_validator, only_letters_and_space_validator
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.contrib.auth import get_user_model
 from cloudinary import models as cloudinary_models

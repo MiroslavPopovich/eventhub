@@ -3,7 +3,6 @@ from eventhub.user_auth.models import AppUser
 from eventhub.user_profile.models import Profile
 from eventhub.helpers import BootstrapMixin
 
-
 class DateInput(forms.DateInput):
     input_type = 'date'
 
