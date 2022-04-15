@@ -1,10 +1,11 @@
 from django.db import models
-from eventhub.categories.validators import MaxFileSizeInMbValidator, only_letters_validator
+from eventhub.categories.validators import MaxFileSizeInMbValidator, only_letters_validator, only_letters_and_space_validator
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from cloudinary import models as cloudinary_models
 
 class Category(models.Model):
     ONLY_LETTERS_VALIDATOR = only_letters_validator
+    ONLY_LETTERS_AND_SPACE_VALIDATOR = only_letters_and_space_validator
     
     CATEGORY_TYPE_MIN_LEN = 2
     CATEGORY_TYPE_MAX_LEN = 15
@@ -30,7 +31,7 @@ class Category(models.Model):
         validators=(
             MinLengthValidator(CATEGORY_DESCRIPTION_MIN_LEN),
             MaxLengthValidator(CATEGORY_DESCRIPTION_MAX_LEN),
-            ONLY_LETTERS_VALIDATOR,
+            ONLY_LETTERS_AND_SPACE_VALIDATOR,
         )
     )
     

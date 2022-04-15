@@ -16,7 +16,7 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     LAST_NAME_MAX_LEN = 15
     
     first_name = models.CharField(
-        default='None',
+        default='',
         max_length=FIRST_NAME_MAX_LEN,
         null=False,
         blank=False,
@@ -29,7 +29,7 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     )
     
     last_name = models.CharField(
-        default='None',
+        default='',
         max_length=LAST_NAME_MAX_LEN,
         null=False,
         blank=False,

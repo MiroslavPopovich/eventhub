@@ -1,6 +1,6 @@
 from django.db import models
 from eventhub.categories.models import Category
-from eventhub.categories.validators import MaxFileSizeInMbValidator, only_letters_validator
+from eventhub.categories.validators import MaxFileSizeInMbValidator, only_letters_validator, only_letters_and_space_validator
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.contrib.auth import get_user_model
 from cloudinary import models as cloudinary_models
@@ -21,17 +21,17 @@ class Home(models.Model):
     )
     
     topic_first_message = models.CharField(
-        max_length= 26,
+        max_length = 26,
         default='',
     )
     
     topic_second_message = models.CharField(
-        max_length= 26,
+        max_length = 26,
         default='',
     )
     
     topic_third_message = models.CharField(
-        max_length= 26,
+        max_length = 26,
         default='',
     )
     
@@ -58,9 +58,10 @@ class Home(models.Model):
 
 class Event(models.Model):
     ONLY_LETTERS_VALIDATOR = only_letters_validator
+    ONLY_LETTERS_AND_SPACE_VALIDATOR = only_letters_and_space_validator
     
     EVENT_TOPIC_MIN_LEN = 2
-    EVENT_TOPIC_MAX_LEN = 15
+    EVENT_TOPIC_MAX_LEN = 35
     
     EVENT_BRIEF_DESCRIPTION_MIN_LEN = 5
     EVENT_BRIEF_DESCRIPTION_MAX_LEN = 100
@@ -76,7 +77,7 @@ class Event(models.Model):
         validators=(
             MinLengthValidator(EVENT_TOPIC_MIN_LEN),
             MaxLengthValidator(EVENT_TOPIC_MAX_LEN),
-            ONLY_LETTERS_VALIDATOR,
+            ONLY_LETTERS_AND_SPACE_VALIDATOR,
         )
     )
     
@@ -86,6 +87,7 @@ class Event(models.Model):
         validators=(
             MinLengthValidator(EVENT_BRIEF_DESCRIPTION_MIN_LEN),
             MaxLengthValidator(EVENT_BRIEF_DESCRIPTION_MAX_LEN),
+            ONLY_LETTERS_AND_SPACE_VALIDATOR,
         )
     )
     
