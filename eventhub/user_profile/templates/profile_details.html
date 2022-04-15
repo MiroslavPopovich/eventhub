@@ -65,6 +65,9 @@
         <!-- Info for Events Pet -->
         <div style="width: 18rem;">
             <h5>{{ event.topic }}</h5>
+            <a href="{% url 'event_details' event.pk %}"> 
+                <h6>Click here for details</h6>
+            </a>
             <p class="mt-2">{{ event.category }}</p>
             <a href="{% url 'event_update' event.pk %}" class="btn btn-primary">Update</a>
             <a href="{% url 'event_delete_page' event.pk %}" class="btn btn-danger">Delete</a>
