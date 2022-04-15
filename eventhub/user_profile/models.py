@@ -3,7 +3,7 @@ from django.db import models
 from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.contrib.auth import get_user_model
 from eventhub.user_profile.validators import MaxFileSizeInMbValidator, only_letters_validator
-
+from cloudinary import models as cloudinary_models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
@@ -57,14 +57,16 @@ class Profile(models.Model):
         blank=True,
     )
     
-    image = models.ImageField(
-        upload_to=IMAGE_UPLOAD_TO_DIR,
-        null=True,
-        blank=True,
-        validators=(
-            MaxFileSizeInMbValidator(IMAGE_MAX_SIZE_IN_MB),
-        )
-    )
+    image = cloudinary_models.CloudinaryField('image', blank = True, null = True)
+    
+    # image = models.ImageField(
+    #     upload_to=IMAGE_UPLOAD_TO_DIR,
+    #     null=True,
+    #     blank=True,
+    #     validators=(
+    #         MaxFileSizeInMbValidator(IMAGE_MAX_SIZE_IN_MB),
+    #     )
+    # )
     
     description = models.TextField(
         null=True,
@@ -77,16 +79,16 @@ class Profile(models.Model):
         primary_key=True,
     )
     
-    def delete(self, *args, **kwargs):
-        image_dir = self.image
+    # def delete(self, *args, **kwargs):
+    #     image_dir = self.image
     # You have to prepare what you need before delete the model
-        if image_dir:
-            storage, path = self.image.storage, self.image.path
+        # if image_dir:
+        #     storage, path = self.image.storage, self.image.path
     # Delete the model before the file
-        super(Profile, self).delete(*args, **kwargs)
+        # super(Profile, self).delete(*args, **kwargs)
     # Delete the file after the model
-        if image_dir:
-            storage.delete(path)
+        # if image_dir:
+        #     storage.delete(path)
     
     @property
     def age(self):

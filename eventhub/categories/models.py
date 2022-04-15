@@ -1,6 +1,7 @@
 from django.db import models
 from eventhub.categories.validators import MaxFileSizeInMbValidator, only_letters_validator
 from django.core.validators import MinLengthValidator, MaxLengthValidator
+from cloudinary import models as cloudinary_models
 
 class Category(models.Model):
     ONLY_LETTERS_VALIDATOR = only_letters_validator
@@ -39,14 +40,16 @@ class Category(models.Model):
         blank=True,
     )
     
-    image = models.ImageField(
-        upload_to=IMAGE_UPLOAD_TO_DIR,
-        null=True,
-        blank=True,
-        validators=(
-            MaxFileSizeInMbValidator(IMAGE_MAX_SIZE_IN_MB),
-        )
-    )
+    image = cloudinary_models.CloudinaryField('image', blank = True, null = True)
+    
+    # image = models.ImageField(
+    #     upload_to=IMAGE_UPLOAD_TO_DIR,
+    #     null=True,
+    #     blank=True,
+    #     validators=(
+    #         MaxFileSizeInMbValidator(IMAGE_MAX_SIZE_IN_MB),
+    #     )
+    # )
     
     def __str__(self) -> str:
         return f'{self.category_type}'

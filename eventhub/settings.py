@@ -1,16 +1,17 @@
 import os
 from pathlib import Path
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'mirosj4kk(35+d(wbf*w$pr9^+@xcijyvm8qcfx6my$gj3zdq+26-ov')
 
-APP_ENVIRONMENT = os.getenv('APP_ENVIRONMENT')
+APP_ENVIRONMENT = os.getenv('APP_ENVIRONMENT', 'Development')
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', "127.0.0.1 localhost").split(' ')
 
 
 # ['127.0.0.1',
@@ -37,6 +38,7 @@ THIRD_PARTY_APPS = [
 
 EVENTHUB_APPS = [
     'django_cleanup.apps.CleanupConfig',
+    'cloudinary'
 ]
 
 INSTALLED_APPS =  DJANGO_APPS + THIRD_PARTY_APPS + EVENTHUB_APPS
@@ -158,3 +160,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = 'home'
 
 AUTH_USER_MODEL = 'user_auth.AppUser'
+
+cloudinary.config( 
+  cloud_name = os.getenv('CLOUDINARY_GLOUD_NAME', None), 
+  api_key = os.getenv('CLOUDINARY_API_KEY', None),
+  api_secret = os.getenv('CLOUDINARY_API_SECRET', None),
+)
