@@ -1,4 +1,3 @@
-
 import os
 from pathlib import Path
 
@@ -12,6 +11,7 @@ APP_ENVIRONMENT = os.getenv('APP_ENVIRONMENT')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+
 
 # ['127.0.0.1',
 #  'localhost',
