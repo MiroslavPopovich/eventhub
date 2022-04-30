@@ -76,6 +76,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'eventhub.wsgi.application'
 
 
+
+
 # Database
 
 DATABASES = None
