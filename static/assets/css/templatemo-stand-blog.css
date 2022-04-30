@@ -60,7 +60,6 @@ h1,h2,h3,h4,h5,h6 {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-image: url(../images/heading-bg.jpg);
-	height: 21vh;
 }
 
 .page-heading .text-content h4 {
@@ -251,7 +250,7 @@ header .navbar {
 	border-radius: 0px;
 	position: absolute;
 	right: 30px;
-	top: 25px;
+	top: 15px;
 }
 .navbar .navbar-toggler-icon:after {
 	content: '\f0c9';

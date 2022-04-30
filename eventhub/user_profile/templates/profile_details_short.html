@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="d-flex">
-            <div class="d-inline p-2" style="padding: 4rem !important;">
+            <div class="d-inline p-2">
                 {% if profile.image %}
                 <div class="rounded mx-auto d-block">
                     <img style="height: 162px; width: 162px" src="{{ profile.image.url }}" alt="description">
@@ -25,7 +25,7 @@
                 </div>
                 {% endif %}
             </div>
-            <div class="d-inline p-2"  style="padding: 4rem !important;">
+            <div class="d-inline p-2">
                 <div class="d-flex flex-column">
                     <h5 class="profileFont"><u>Name:</u> {{ profile.full_name }}</h5>
                     <!-- If Date of Birth -->
